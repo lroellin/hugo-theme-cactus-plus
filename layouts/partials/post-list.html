@@ -1,0 +1,20 @@
+<ul id="post-list">
+    {{ range where .Paginator.Pages "Params.hidden" "ne" "true" }}
+    {{ $url := replace .Permalink .Site.BaseURL "" }}
+        {{ if ne $url "about/" }}
+            <li>
+                <a href='{{ .Permalink }}'><aside class="dates">{{ .Date.Format "Jan 2" }}</aside></a>
+                <a href='{{ .Permalink }}'>
+                  {{ if .Site.Params.useDescriptionAsTitle }}
+    	                {{ .Description }}
+    	            {{ else }}
+                     {{ .Title }} <h2>{{ .Description | markdownify }}</h2>
+    	          	{{ end }}
+                </a>
+                <section id="summary">
+                    {{ .Summary }}
+                </section>
+            </li>
+        {{ end }}
+    {{ end }}
+</ul>
